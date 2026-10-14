@@ -1,0 +1,479 @@
+Please enter a MongoDB connection string (Default: mongodb://localhost/):
+
+Current Mongosh Log ID: 6aceb3d4606b684a3d0d8078
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.9.1
+Using MongoDB:          8.0.4
+Using Mongosh:          2.9.1
+mongosh 2.13.0 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2026-10-14T01:41:56.209+03:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+   2026-10-14T01:41:56.210+03:00: This server is bound to localhost. Remote systems will be unable to connect to this server. Start the server with --bind_ip <address> to specify which IP addresses it should serve responses from, or with --bind_ip_all to bind to all interfaces. If this behavior is desired, start the server with --bind_ip 127.0.0.1 to disable this warning
+------
+
+test> db
+test
+test> show dbs
+admin            40.00 KiB
+config           72.00 KiB
+finance-flow    420.00 KiB
+local            76.00 KiB
+smart-study-db  504.00 KiB
+test> use mongo-test
+switched to db mongo-test
+mongo-test> db
+mongo-test
+mongo-test> db.users.insertMany([
+|   {
+|     name: "Ahmed Ali",
+|     email: "ahmed@example.com",
+|     age: 26,
+|     role: "admin",
+|     createdAt: new Date()
+|   },
+|   {
+|     name: "Sara Mohamed",
+|     email: "sara@example.com",
+|     age: 23,
+|     role: "user",
+|     createdAt: new Date()
+|   },
+|   {
+|     name: "Omar Hassan",
+|     email: "omar@example.com",
+|     age: 30,
+|     role: "user",
+|     createdAt: new Date()
+|   }
+| ]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6aceb458606b684a3d0d8079'),
+    '1': ObjectId('6aceb458606b684a3d0d807a'),
+    '2': ObjectId('6aceb458606b684a3d0d807b')
+  }
+}
+mongo-test> db
+mongo-test
+mongo-test> db.users.find()
+[
+  {
+    _id: ObjectId('6aceb458606b684a3d0d8079'),
+    name: 'Ahmed Ali',
+    email: 'ahmed@example.com',
+    age: 26,
+    role: 'admin',
+    createdAt: ISODate('2026-10-13T22:44:40.348Z')
+  },
+  {
+    _id: ObjectId('6aceb458606b684a3d0d807a'),
+    name: 'Sara Mohamed',
+    email: 'sara@example.com',
+    age: 23,
+    role: 'user',
+    createdAt: ISODate('2026-10-13T22:44:40.348Z')
+  },
+  {
+    _id: ObjectId('6aceb458606b684a3d0d807b'),
+    name: 'Omar Hassan',
+    email: 'omar@example.com',
+    age: 30,
+    role: 'user',
+    createdAt: ISODate('2026-10-13T22:44:40.348Z')
+  }
+]
+mongo-test> db.orders.insertMany([
+|   {
+|     orderNumber: "ORD-1001",
+|     customerName: "Ahmed Ali",
+|     items: [
+|       { product: "Laptop", quantity: 1, price: 15000 },
+|       { product: "Mouse", quantity: 1, price: 350 }
+|     ],
+|     totalAmount: 15350,
+|     status: "delivered",
+|     orderDate: new Date()
+|   },
+|   {
+|     orderNumber: "ORD-1002",
+|     customerName: "Sara Mohamed",
+|     items: [
+|       { product: "Keyboard", quantity: 1, price: 800 }
+|     ],
+|     totalAmount: 800,
+|     status: "pending",
+|     orderDate: new Date()
+|   },
+|   {
+|     orderNumber: "ORD-1003",
+|     customerName: "Omar Hassan",
+|     items: [
+|       { product: "Monitor", quantity: 2, price: 4200 }
+|     ],
+|     totalAmount: 8400,
+|     status: "shipped",
+|     orderDate: new Date()
+|   }
+| ]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6aceb484606b684a3d0d807c'),
+    '1': ObjectId('6aceb484606b684a3d0d807d'),
+    '2': ObjectId('6aceb484606b684a3d0d807e')
+  }
+}
+mongo-test> db.orders.find()
+[
+  {
+    _id: ObjectId('6aceb484606b684a3d0d807c'),
+    orderNumber: 'ORD-1001',
+    customerName: 'Ahmed Ali',
+    items: [
+      { product: 'Laptop', quantity: 1, price: 15000 },
+      { product: 'Mouse', quantity: 1, price: 350 }
+    ],
+    totalAmount: 15350,
+    status: 'delivered',
+    orderDate: ISODate('2026-10-13T22:45:24.254Z')
+  },
+  {
+    _id: ObjectId('6aceb484606b684a3d0d807d'),
+    orderNumber: 'ORD-1002',
+    customerName: 'Sara Mohamed',
+    items: [ { product: 'Keyboard', quantity: 1, price: 800 } ],
+    totalAmount: 800,
+    status: 'pending',
+    orderDate: ISODate('2026-10-13T22:45:24.254Z')
+  },
+  {
+    _id: ObjectId('6aceb484606b684a3d0d807e'),
+    orderNumber: 'ORD-1003',
+    customerName: 'Omar Hassan',
+    items: [ { product: 'Monitor', quantity: 2, price: 4200 } ],
+    totalAmount: 8400,
+    status: 'shipped',
+    orderDate: ISODate('2026-10-13T22:45:24.254Z')
+  }
+]
+mongo-test> db.users.find({},{name:1,email:1,role:1})
+[
+  {
+    _id: ObjectId('6aceb458606b684a3d0d8079'),
+    name: 'Ahmed Ali',
+    email: 'ahmed@example.com',
+    role: 'admin'
+  },
+  {
+    _id: ObjectId('6aceb458606b684a3d0d807a'),
+    name: 'Sara Mohamed',
+    email: 'sara@example.com',
+    role: 'user'
+  },
+  {
+    _id: ObjectId('6aceb458606b684a3d0d807b'),
+    name: 'Omar Hassan',
+    email: 'omar@example.com',
+    role: 'user'
+  }
+]
+mongo-test> db.orders.find({
+| totalAmount: { $gt: 1000 },
+| status: {$ne: "delivered"}},{orderNumber:1,customerName:1,totalAmount:1,status:1})
+[
+  {
+    _id: ObjectId('6aceb484606b684a3d0d807e'),
+    orderNumber: 'ORD-1003',
+    customerName: 'Omar Hassan',
+    totalAmount: 8400,
+    status: 'shipped'
+  }
+]
+mongo-test> db.orders.find({ totalAmount: { $gt: 1000 }, status: { $iequal: "shipped" } }, { orderNumber: 1, customerName: 1, totalAmount: 1, status: 1 })
+MongoServerError[BadValue]: unknown operator: $iequal
+mongo-test> db.orders.find({ totalAmount: { $gt: 1000 }, status: { $eq: "shipped" } }, { orderNumber: 1, customerName: 1, totalAmount: 1, status: 1 })
+[
+  {
+    _id: ObjectId('6aceb484606b684a3d0d807e'),
+    orderNumber: 'ORD-1003',
+    customerName: 'Omar Hassan',
+    totalAmount: 8400,
+    status: 'shipped'
+  }
+]
+mongo-test> db.users.updateOne({role: "admin"}, $set:{ role: "user"})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:40)
+
+> 1 | db.users.updateOne({role: "admin"}, $set:{ role: "user"})
+    |                                         ^
+  2 |
+
+mongo-test> db.users.updateOne({role: "admin"}, {$set:{ role: "user"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+mongo-test> db.users.find()
+[
+  {
+    _id: ObjectId('6aceb458606b684a3d0d8079'),
+    name: 'Ahmed Ali',
+    email: 'ahmed@example.com',
+    age: 26,
+    role: 'user',
+    createdAt: ISODate('2026-10-13T22:44:40.348Z')
+  },
+  {
+    _id: ObjectId('6aceb458606b684a3d0d807a'),
+    name: 'Sara Mohamed',
+    email: 'sara@example.com',
+    age: 23,
+    role: 'user',
+    createdAt: ISODate('2026-10-13T22:44:40.348Z')
+  },
+  {
+    _id: ObjectId('6aceb458606b684a3d0d807b'),
+    name: 'Omar Hassan',
+    email: 'omar@example.com',
+    age: 30,
+    role: 'user',
+    createdAt: ISODate('2026-10-13T22:44:40.348Z')
+  }
+]
+mongo-test> db.users.createIndex({email:1},{unique:true})
+email_1
+mongo-test> db.users.find(email)
+ReferenceError: email is not defined
+mongo-test> db.users.find({email})
+ReferenceError: email is not defined
+mongo-test> db.users.find({email: "ahmed@example.com"})
+[
+  {
+    _id: ObjectId('6aceb458606b684a3d0d8079'),
+    name: 'Ahmed Ali',
+    email: 'ahmed@example.com',
+    age: 26,
+    role: 'user',
+    createdAt: ISODate('2026-10-13T22:44:40.348Z')
+  }
+]
+mongo-test> db.users.find({email: "ahmed@example.com"}).explain("executionStats")
+{
+  explainVersion: '1',
+  queryPlanner: {
+    namespace: 'mongo-test.users',
+    parsedQuery: { email: { '$eq': 'ahmed@example.com' } },
+    indexFilterSet: false,
+    planCacheShapeHash: 'ED28E3D2',
+    planCacheKey: '1E950542',
+    optimizationTimeMillis: 0,
+    maxIndexedOrSolutionsReached: false,
+    maxIndexedAndSolutionsReached: false,
+    maxScansToExplodeReached: false,
+    prunedSimilarIndexes: false,
+    winningPlan: {
+      isCached: false,
+      stage: 'EXPRESS_IXSCAN',
+      keyPattern: '{ email: 1 }',
+      indexName: 'email_1'
+    },
+    rejectedPlans: []
+  },
+  executionStats: {
+    executionSuccess: true,
+    nReturned: 1,
+    executionTimeMillis: 2,
+    totalKeysExamined: 1,
+    totalDocsExamined: 1,
+    executionStages: {
+      isCached: false,
+      stage: 'EXPRESS_IXSCAN',
+      keyPattern: '{ email: 1 }',
+      indexName: 'email_1',
+      keysExamined: 1,
+      docsExamined: 1,
+      nReturned: 1
+    }
+  },
+  queryShapeHash: 'AC46F574DEF2AD71191FA578397355F676331051765AD34C2DB14E2F4C1F1BC1',
+  command: {
+    find: 'users',
+    filter: { email: 'ahmed@example.com' },
+    '$db': 'mongo-test'
+  },
+  serverInfo: {
+    host: 'MU-PC',
+    port: 27017,
+    version: '8.0.4',
+    gitVersion: 'bc35ab4305d9920d9d0491c1c9ef9b72383d31f9'
+  },
+  serverParameters: {
+    internalQueryFacetBufferSizeBytes: 104857600,
+    internalQueryFacetMaxOutputDocSizeBytes: 104857600,
+    internalLookupStageIntermediateDocumentMaxSizeBytes: 104857600,
+    internalDocumentSourceGroupMaxMemoryBytes: 104857600,
+    internalQueryMaxBlockingSortMemoryUsageBytes: 104857600,
+    internalQueryProhibitBlockingMergeOnMongoS: 0,
+    internalQueryMaxAddToSetBytes: 104857600,
+    internalDocumentSourceSetWindowFieldsMaxMemoryBytes: 104857600,
+    internalQueryFrameworkControl: 'trySbeRestricted',
+    internalQueryPlannerIgnoreIndexWithCollationForRegex: 1
+  },
+  ok: 1
+}
+mongo-test> db.users.getIndexes()
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  { v: 2, key: { email: 1 }, name: 'email_1', unique: true }
+]
+mongo-test> db.orders.createIndex({orderNumber},{unique:true})
+ReferenceError: orderNumber is not defined
+mongo-test> db.orders.createIndex({orderNumber:1})
+orderNumber_1
+mongo-test> db.users.getIndexes()
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  { v: 2, key: { email: 1 }, name: 'email_1', unique: true }
+]
+mongo-test> db.orders.getIndexes()
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  { v: 2, key: { orderNumber: 1 }, name: 'orderNumber_1' }
+]
+mongo-test> db.users.aggregate([{
+| $group: { $id: null , $sum: $age}
+| ]})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (3:0)
+
+  1 | db.users.aggregate([{
+  2 | $group: { $id: null , $sum: $age}
+> 3 | ]})
+    | ^
+  4 |
+
+mongo-test> db.users.aggregate([{ $group: { $id: null , totalAge: {$sum: "$age"} } }])
+MongoServerError[Location40234]: The field '$id' must be an accumulator object
+mongo-test> db.users.aggregate([{ $group: { $_id: null , totalAge: {$sum: "$age"} } }])
+MongoServerError[Location40234]: The field '$_id' must be an accumulator object
+mongo-test> db.users.aggregate([{ $group: { _id: null , totalAge: {$sum: "$age"} } }])
+[ { _id: null, totalAge: 79 } ]
+mongo-test> db.orders.aggergate([
+| $unwind: $items ,
+Uncaught:
+SyntaxError: Unexpected token, expected "," (2:7)
+
+  1 | db.orders.aggergate([
+> 2 | $unwind: $items ,
+    |        ^
+  3 |
+
+mongo-test> db.orders.aggergate([ $unwind: $items ,
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:29)
+
+> 1 | db.orders.aggergate([ $unwind: $items ,
+    |                              ^
+  2 |
+
+mongo-test> db.orders.aggergate([ $unwind: "$items", $group: {_id:null, totalPrice: {$sum: "$items.price"}}, $project: {_id:0,orderDate:0} ])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:29)
+
+> 1 | db.orders.aggergate([ $unwind: "$items", $group: {_id:null, totalPrice: {$sum: "$items.price"}}, $project: {_id:0,orderDate:0} ])
+    |                              ^
+  2 |
+
+mongo-test> db.orders.aggregate([ {$unwind: "$items"},{ $group: {_id:null, totalPrice: {$sum: "$items.price"}}}, {$project: {_id:0,orderDate:0}} ])
+[ { totalPrice: 20350 } ]
+mongo-test> db.orders.aggregate([ {$unwind: "$items"},{ $group: {_id:null, totalPrice: {$sum: "$items.price"}}}, {$project: {_id:0,orderDate:1}} ])
+[ {} ]
+mongo-test> db.orders.aggregate([ {$unwind: "$items"},{ $group: {_id:null, totalPrice: {$sum: "$items.price"}}}, {$project: {_id:0,orderDate:0}} ])
+[ { totalPrice: 20350 } ]
+mongo-test> db.orders.aggregate([ {$unwind: "$items"},{ $group: {_id:null, totalPrice: {$sum: "$items.price"}}}, {$project: {_id:0,totalAmount:1}} ])
+[ {} ]
+mongo-test> db.users.aggregate([
+| { $lookup: { from: "orders", localField: "name", foreignField: "CustomerName", as: "orderList" }}, { $project: { _id:0, userName: "$name", email:1, orderLorderList:1}}])
+[
+  { email: 'ahmed@example.com', orderList: [], userName: 'Ahmed Ali' },
+  { email: 'sara@example.com', orderList: [], userName: 'Sara Mohamed' },
+  { email: 'omar@example.com', orderList: [], userName: 'Omar Hassan' }
+]
+mongo-test> db.users.aggregate([ { $lookup: { from: "orders", localField: "name", foreignField: "customerName", as: "orderList" } }, { $project: { _id: 0, userName: "$name", email: 1, orderList: 1 } }])
+[
+  {
+    email: 'ahmed@example.com',
+    orderList: [
+      {
+        _id: ObjectId('6aceb484606b684a3d0d807c'),
+        orderNumber: 'ORD-1001',
+        customerName: 'Ahmed Ali',
+        items: [
+          { product: 'Laptop', quantity: 1, price: 15000 },
+          { product: 'Mouse', quantity: 1, price: 350 }
+        ],
+        totalAmount: 15350,
+        status: 'delivered',
+        orderDate: ISODate('2026-10-13T22:45:24.254Z')
+      }
+    ],
+    userName: 'Ahmed Ali'
+  },
+  {
+    email: 'sara@example.com',
+    orderList: [
+      {
+        _id: ObjectId('6aceb484606b684a3d0d807d'),
+        orderNumber: 'ORD-1002',
+        customerName: 'Sara Mohamed',
+        items: [ { product: 'Keyboard', quantity: 1, price: 800 } ],
+        totalAmount: 800,
+        status: 'pending',
+        orderDate: ISODate('2026-10-13T22:45:24.254Z')
+      }
+    ],
+    userName: 'Sara Mohamed'
+  },
+  {
+    email: 'omar@example.com',
+    orderList: [
+      {
+        _id: ObjectId('6aceb484606b684a3d0d807e'),
+        orderNumber: 'ORD-1003',
+        customerName: 'Omar Hassan',
+        items: [ { product: 'Monitor', quantity: 2, price: 4200 } ],
+        totalAmount: 8400,
+        status: 'shipped',
+        orderDate: ISODate('2026-10-13T22:45:24.254Z')
+      }
+    ],
+    userName: 'Omar Hassan'
+  }
+]
+mongo-test> db.orders.dropCollection()
+TypeError: db.orders.dropCollection is not a function
+mongo-test> db.orders.drop()
+true
+mongo-test> show collections
+users
+mongo-test> db.student.replaceOne({},{})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+mongo-test> db.student.find()
+
+mongo-test> show collections
+users
+mongo-test>
